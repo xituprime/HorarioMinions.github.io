@@ -7,6 +7,21 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
         
+        :root {
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #0f172a;
+            --muted: #64748b;
+            
+            --ff2016: #dbeafe;
+            --mm2001: #dcfce7;
+            --mm2002: #ede9fe;
+            --cc3086: #ffedd5;
+            --cc2016: #fee2e2;
+            --cu173: #ecfeff;
+            --ei2138: #f1f5f9;
+        }
+        
         * {
             margin: 0;
             padding: 0;
@@ -15,42 +30,39 @@
         
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--bg);
             min-height: 100vh;
             padding: 20px;
             print-color-adjust: exact;
             -webkit-print-color-adjust: exact;
+            color: var(--text);
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--card);
             border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px rgba(15, 23, 42, 0.1);
         }
         
         .header {
             text-align: center;
             margin-bottom: 30px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
         
         .header h1 {
             font-size: 2.5em;
             font-weight: 700;
             margin-bottom: 10px;
+            color: var(--text);
         }
         
         .header h2 {
             font-size: 1.3em;
             font-weight: 400;
-            opacity: 0.8;
+            color: var(--muted);
         }
         
         .info-banner {
@@ -75,111 +87,248 @@
         .schedule-grid {
             display: grid;
             grid-template-columns: 100px repeat(6, 1fr);
-            gap: 2px;
+            gap: 6px;
             margin-bottom: 30px;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
         }
         
         .time-slot, .day-header, .class-cell {
-            padding: 12px 8px;
+            padding: 10px 6px;
             text-align: center;
-            font-size: 0.85em;
-            border-radius: 5px;
+            font-size: 0.8em;
+            border-radius: 8px;
             transition: all 0.3s ease;
         }
         
         .time-slot {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: var(--text);
             color: white;
             font-weight: 600;
-            font-size: 0.8em;
+            font-size: 0.7em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.2;
         }
         
         .day-header {
-            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            background: var(--text);
             color: white;
             font-weight: 600;
-            font-size: 0.9em;
+            font-size: 0.85em;
+            padding: 12px;
         }
         
         .class-cell {
-            background: white;
-            border: 1px solid #e0e0e0;
-            min-height: 60px;
+            background: var(--card);
+            border: 2px solid #e2e8f0;
+            min-height: 70px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             position: relative;
+            cursor: pointer;
+            padding: 8px 6px;
         }
         
-        .class-cell.has-class {
-            background: linear-gradient(135deg, #a8edea, #fed6e3);
-            border: 2px solid #667eea;
-            transform: scale(1.02);
+        .class-cell.empty {
+            background: #f8fafc;
+            cursor: default;
+            border: 1px dashed #cbd5e1;
         }
         
-        .class-cell.has-class:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        .class-cell.ff2016 {
+            background: var(--ff2016);
+            border-color: #3b82f6;
+        }
+        
+        .class-cell.mm2001 {
+            background: var(--mm2001);
+            border-color: #22c55e;
+        }
+        
+        .class-cell.mm2002 {
+            background: var(--mm2002);
+            border-color: #a855f7;
+        }
+        
+        .class-cell.cc3086 {
+            background: var(--cc3086);
+            border-color: #f97316;
+        }
+        
+        .class-cell.cc2016 {
+            background: var(--cc2016);
+            border-color: #ef4444;
+        }
+        
+        .class-cell.cu173 {
+            background: var(--cu173);
+            border-color: #06b6d4;
+        }
+        
+        .class-cell.ei2138 {
+            background: var(--ei2138);
+            border-color: var(--muted);
+        }
+        
+        .class-cell:not(.empty):hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
         }
         
         .class-name {
             font-weight: 600;
-            color: #2c3e50;
-            font-size: 0.75em;
+            color: var(--text);
+            font-size: 0.72em;
+            margin-bottom: 3px;
+            line-height: 1.3;
+        }
+        
+        .class-code {
+            font-size: 0.65em;
+            color: var(--muted);
+            font-weight: 500;
             margin-bottom: 2px;
-            line-height: 1.2;
         }
         
         .class-room {
             font-size: 0.65em;
-            color: #7f8c8d;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 2px 6px;
-            border-radius: 8px;
-            margin-top: 2px;
+            color: var(--muted);
+            font-weight: 500;
         }
         
         .subjects-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            gap: 18px;
             margin-top: 30px;
         }
         
         .subject-card {
-            background: white;
-            border-radius: 15px;
+            background: var(--card);
+            border-radius: 12px;
             padding: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border-left: 5px solid #667eea;
-            transition: transform 0.3s ease;
+            box-shadow: 0 2px 4px rgba(15, 23, 42, 0.08);
+            border-left: 4px solid;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
         .subject-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(15, 23, 42, 0.12);
         }
         
+        .subject-card.ff2016 { border-color: #3b82f6; }
+        .subject-card.mm2001 { border-color: #22c55e; }
+        .subject-card.mm2002 { border-color: #a855f7; }
+        .subject-card.cc3086 { border-color: #f97316; }
+        .subject-card.cc2016 { border-color: #ef4444; }
+        .subject-card.cu173 { border-color: #06b6d4; }
+        .subject-card.ei2138 { border-color: var(--muted); }
+        
         .subject-card h4 {
-            color: #2c3e50;
+            color: var(--text);
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            font-size: 1.05em;
         }
         
         .subject-card p {
-            color: #7f8c8d;
-            font-size: 0.9em;
-            margin-bottom: 5px;
+            color: var(--muted);
+            font-size: 0.88em;
+            margin-bottom: 6px;
+        }
+        
+        .subject-card .code-badge {
+            display: inline-block;
+            background: var(--bg);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75em;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 10px;
         }
         
         .footer {
             text-align: center;
-            margin-top: 30px;
+            margin-top: 40px;
             padding-top: 20px;
-            border-top: 2px solid #ecf0f1;
-            color: #7f8c8d;
+            border-top: 2px solid #e2e8f0;
+            color: var(--muted);
+        }
+        
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        
+        .modal-content {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .modal-content h3 {
+            color: var(--text);
+            margin-bottom: 16px;
+            font-size: 1.5em;
+        }
+        
+        .modal-content p {
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+        
+        #close-modal {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: var(--text);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        #close-modal:hover {
+            background: var(--muted);
+            transform: translateY(-2px);
+        }
+        
+        .print-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--text);
+            color: white;
+            border: none;
+            padding: 16px 28px;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .print-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.4);
         }
         
         @media print {
@@ -189,33 +338,29 @@
             }
             
             .container {
-                background: white;
                 box-shadow: none;
-                border-radius: 0;
                 padding: 20px;
             }
             
-            .schedule-grid {
-                font-size: 0.8em;
-            }
-            
-            .class-cell {
-                min-height: 50px;
+            .print-button {
+                display: none;
             }
         }
         
-        @media (max-width: 768px) {
+        @media (max-width: 968px) {
             .schedule-grid {
-                font-size: 0.7em;
+                font-size: 0.65em;
+                grid-template-columns: 80px repeat(6, 1fr);
+                gap: 4px;
             }
             
             .class-cell {
-                min-height: 50px;
-                padding: 8px 4px;
+                min-height: 55px;
+                padding: 6px 3px;
             }
             
             .class-name {
-                font-size: 0.7em;
+                font-size: 0.68em;
             }
             
             .class-room {
@@ -228,386 +373,197 @@
     <div class="container">
         <div class="header">
             <h1>📚 Horario Académico</h1>
-            <h2>Axel Antonio Xitumul Chén</h2>
+            
         </div>
         
         <div class="info-banner">
             <h3>🎓 Licenciatura en Ingeniería en Ciencia de la Computación y Tecnologías de la Información</h3>
-            <p>1er Año, 2do Semestre • Universidad del Valle de Guatemala • Semestre 2025</p>
+            <p>2do Año • Universidad del Valle de Guatemala • Semestre 2025</p>
         </div>
         
-        <div class="schedule-grid">
-            <div class="time-slot">🕐 Hora</div>
-            <div class="day-header">Lunes</div>
-            <div class="day-header">Martes</div>
-            <div class="day-header">Miércoles</div>
-            <div class="day-header">Jueves</div>
-            <div class="day-header">Viernes</div>
-            <div class="day-header">Sábado</div>
-            
-            <!-- 07:50 - 08:35 -->
-            <div class="time-slot">07:50<br>08:35</div>
-            <div class="class-cell"></div>
-            <div class="class-cell"></div>
-            <div class="class-cell"></div>
-            <div class="class-cell has-class">
-                <div class="class-name">Organización de Computadoras y Assembler</div>
-                <div class="class-room">📍 CIT-541</div>
-            </div>
-            <div class="class-cell"></div>
-            <div class="class-cell"></div>
-            
-            <!-- 08:40 - 09:25 -->
-            <div class="time-slot">08:40<br>09:25</div>
-            <div class="class-cell has-class">
-                <div class="class-name">Cálculo 1</div>
-                <div class="class-room">📍 CIT-503</div>
-            </div>
-            <div class="class-cell has-class">
-                <div class="class-name">Estadística 1</div>
-                <div class="class-room">📍 CIT-414</div>
-            </div>
-            <div class="class-cell has-class">
-                <div class="class-name">Cálculo 1</div>
-                <div class="class-room">📍 CIT-503</div>
-            </div>
-            <div class="class-cell has-class">
-                <div class="class-name">Organización de Computadoras y Assembler</div>
-                <div class="class-room">📍 CIT-541</div>
-            </div>
-            <div class="class-cell has-class">
-                <div class="class-name">Cálculo 1</div>
-                <div class="class-room">📍 CIT-503</div>
-            </div>
-            <div class="class-cell"></div>
-            
-            <!-- 09:30 - 10:15 -->
-            <div class="time-slot">09:30<br>10:15</div>
-            <div class="class-cell has-class">
-                <div class="class-name">Cálculo 1</div>
-                <div class="class-room">📍 CIT-503</div>
-            </div>
-            <div class="class-cell has-class">
-                <div class="class-name">Estadística 1</div>
-                <div class="class-room">📍 CIT-414</div>
-            </div>
-            <div class="class-cell has-class">
-                <div class="class-name">Cálculo 1</div>
-                <div class="class-room">📍 CIT-503</div>
-            </div>
-            <div class="class-cell has-class">
-                <div class="class-name">Organización de Computadoras y Assembler</div>
-                <div class="class-room">📍 CIT-541</div>
-            </div>
-            <div class="class-cell has-class">
-                <div class="class-name">Cálculo 1</div>
-                <div class="class-room">📍 CIT-503</div>
-            </div>
-            <div class="class-cell"></div>
-            
-            <!-- 10:40 - 11:25 -->
-            <div class="time-slot">10:40<br>11:25</div>
-            <div class="class-cell has-class">
-                <div class="class-name">Programación Orientada a Objetos</div>
-                <div class="class-room">📍 CIT-541</div>
-            </div>
-            <div class="class-cell has-class">
-                <div class="class-name">Organización de Computadoras y Assembler</div>
-                <div class="class-room">📍 CIT-301</div>
-            </div>
-            <div class="class-cell has-class">
-                <div class="class-name">Guatemala en el Contexto Mundial</div>
-                <div class="class-room">📍 CIT-301</div>
-            </div>
-            <div class="class-cell has-class">
-                <div class="class-name">Ciudadanía Global</div>
-                <div class="class-room">📍 CIT-540</div>
-            </div>
-            <div class="class-cell has-class">
-                <div class="class-name">Programación Orientada a Objetos</div>
-                <div class="class-room">📍 CIT-315B</div>
-            </div>
-            <div class="class-cell"></div>
-            
-            <!-- 11:30 - 12:15 -->
-            <div class="time-slot">11:30<br>12:15</div>
-            <div class="class-cell has-class">
-                <div class="class-name">Programación Orientada a Objetos</div>
-                <div class="class-room">📍 CIT-541</div>
-            </div>
-            <div class="class-cell has-class">
-                <div class="class-name">Organización de Computadoras y Assembler</div>
-                <div class="class-room">📍 CIT-301</div>
-            </div>
-            <div class="class-cell has-class">
-                <div class="class-name">Guatemala en el Contexto Mundial</div>
-                <div class="class-room">📍 CIT-301</div>
-            </div>
-            <div class="class-cell has-class">
-                <div class="class-name">Ciudadanía Global</div>
-                <div class="class-room">📍 CIT-540</div>
-            </div>
-            <div class="class-cell has-class">
-                <div class="class-name">Programación Orientada a Objetos</div>
-                <div class="class-room">📍 CIT-315B</div>
-            </div>
-            <div class="class-cell"></div>
-            
-            <!-- 12:20 - 13:05 -->
-            <div class="time-slot">12:20<br>13:05</div>
-            <div class="class-cell has-class">
-                <div class="class-name">Programación Orientada a Objetos</div>
-                <div class="class-room">📍 CIT-541</div>
-            </div>
-            <div class="class-cell has-class">
-                <div class="class-name">Organización de Computadoras y Assembler</div>
-                <div class="class-room">📍 CIT-301</div>
-            </div>
-            <div class="class-cell has-class">
-                <div class="class-name">Guatemala en el Contexto Mundial</div>
-                <div class="class-room">📍 CIT-301</div>
-            </div>
-            <div class="class-cell has-class">
-                <div class="class-name">Ciudadanía Global</div>
-                <div class="class-room">📍 CIT-540</div>
-            </div>
-            <div class="class-cell has-class">
-                <div class="class-name">Programación Orientada a Objetos</div>
-                <div class="class-room">📍 CIT-315B</div>
-            </div>
-            <div class="class-cell"></div>
-            
-            <!-- 15:05 - 15:50 -->
-            <div class="time-slot">15:05<br>15:50</div>
-            <div class="class-cell"></div>
-            <div class="class-cell"></div> <!-- Clase de inglés eliminada del martes -->
-            <div class="class-cell"></div>
-            <div class="class-cell"></div>
-            <div class="class-cell"></div>
-            <div class="class-cell has-class"> <!-- Clase de inglés añadida al sábado -->
-                <div class="class-name">Pre-Intermediate English B</div>
-                <div class="class-room">📍 CIT-301</div>
-            </div>
-            
-            <!-- 15:50 - 16:35 -->
-            <div class="time-slot">15:50<br>16:35</div>
-            <div class="class-cell"></div>
-            <div class="class-cell"></div> <!-- Clase de inglés eliminada del martes -->
-            <div class="class-cell"></div>
-            <div class="class-cell"></div>
-            <div class="class-cell"></div>
-            <div class="class-cell has-class"> <!-- Clase de inglés añadida al sábado -->
-                <div class="class-name">Pre-Intermediate English B</div>
-                <div class="class-room">📍 CIT-301</div>
-            </div>
-            
-            <!-- 16:35 - 17:20 -->
-            <div class="time-slot">16:35<br>17:20</div>
-            <div class="class-cell"></div>
-            <div class="class-cell"></div> <!-- Clase de inglés eliminada del martes -->
-            <div class="class-cell"></div>
-            <div class="class-cell"></div>
-            <div class="class-cell"></div>
-            <div class="class-cell has-class"> <!-- Clase de inglés añadida al sábado -->
-                <div class="class-name">Pre-Intermediate English B</div>
-                <div class="class-room">📍 CIT-301</div>
-            </div>
-        </div>
+        <div class="schedule-grid" id="scheduleGrid"></div>
         
-        <div class="subjects-list">
-            <div class="subject-card">
-                <h4>💻 Organización de Computadoras y Assembler</h4>
-                <p><strong>Profesora:</strong> Kimberly Marisol Barrera Álvarez</p>
-                <p><strong>Sección:</strong> 11</p>
-                <p><strong>Salones:</strong> CIT-541, CIT-301</p>
-            </div>
-            
-            <div class="subject-card">
-                <h4>🎯 Programación Orientada a Objetos</h4>
-                <p><strong>Profesor:</strong> Erick Francisco Marroquín Rodríguez</p>
-                <p><strong>Sección:</strong> 41</p>
-                <p><strong>Salones:</strong> CIT-541, CIT-315B</p>
-            </div>
-            
-            <div class="subject-card">
-                <h4>📊 Cálculo 1</h4>
-                <p><strong>Profesor:</strong> Ronald Curtiss Quiñonez</p>
-                <p><strong>Sección:</strong> 61</p>
-                <p><strong>Salón:</strong> CIT-503</p>
-            </div>
-            
-            <div class="subject-card">
-                <h4>📈 Estadística 1</h4>
-                <p><strong>Profesora:</strong> Zayda Rita Pérez Zubillaga</p>
-                <p><strong>Sección:</strong> 80</p>
-                <p><strong>Salón:</strong> CIT-414</p>
-            </div>
-            
-            <div class="subject-card">
-                <h4>🌍 Ciudadanía Global</h4>
-                <p><strong>Profesor:</strong> David Jaime Hernández Gutiérrez</p>
-                <p><strong>Sección:</strong> 20</p>
-                <p><strong>Salón:</strong> CIT-540</p>
-            </div>
-            
-            <div class="subject-card">
-                <h4>🇬🇹 Guatemala en el Contexto Mundial</h4>
-                <p><strong>Profesora:</strong> Ivonne Martínez Telón</p>
-                <p><strong>Sección:</strong> 140</p>
-                <p><strong>Salón:</strong> CIT-301</p>
-            </div>
-            
-            <div class="subject-card">
-                <h4>🗣️ Pre-Intermediate English B</h4>
-                <p><strong>Profesora:</strong> Beatriz del Rosario Ruiz Beltrán de Horjales</p>
-                <p><strong>Sección:</strong> 10</p>
-                <p><strong>Salón:</strong> CIT-301</p>
-            </div>
-        </div>
+        <div class="subjects-list" id="subjectsList"></div>
         
         <div class="footer">
-            <p>✨ <strong>Si se puede con este semestre</strong> ✨</p>
+            <p>✨ <strong>Vamos con todo en este semestre!</strong> ✨</p>
+           
         </div>
     </div>
     
+    <button class="print-button" onclick="window.print()">📄 Descargar PDF</button>
+    
+    <div class="modal" id="modal">
+        <div class="modal-content" id="modalContent"></div>
+    </div>
+    
     <script>
-        // Subject data
-        const subjectData = {
-            'Organización de Computadoras y Assembler': {
-                professor: 'Kimberly Marisol Barrera Álvarez',
+        const subjects = {
+            'CC2016': {
+                fullName: 'Algoritmos y Estructuras de Datos',
+                code: 'CC2016',
                 section: '11',
-                rooms: 'CIT-541, CIT-301'
+                rooms: ['CIT-315B', 'CIT-641'],
+                color: 'cc2016',
+                emoji: '💻',
+                professor: 'Solórzano Padilla, Santiago'
             },
-            'Programación Orientada a Objetos': {
-                professor: 'Erick Francisco Marroquín Rodríguez',
-                section: '41',
-                rooms: 'CIT-541, CIT-315B'
+            'EI2138': {
+                fullName: 'Intermediate English A',
+                code: 'EI2138',
+                section: '30',
+                rooms: ['Por confirmar'],
+                color: 'ei2138',
+                emoji: '🗣️',
+                professor: 'Johannessen Boer, Laila Marie'
             },
-            'Cálculo 1': {
-                professor: 'Ronald Curtiss Quiñonez',
-                section: '61',
-                rooms: 'CIT-503'
+            'FF2016': {
+                fullName: 'Física 1',
+                code: 'FF2016',
+                section: '11',
+                rooms: ['C112', 'CIT-418'],
+                color: 'ff2016',
+                emoji: '⚛️',
+                professor: 'Méndez Giono, José Antonio'
             },
-            'Estadística 1': {
-                professor: 'Zayda Rita Pérez Zubillaga',
-                section: '80',
-                rooms: 'CIT-414'
-            },
-            'Ciudadanía Global': {
-                professor: 'David Jaime Hernández Gutiérrez',
-                section: '20',
-                rooms: 'CIT-540'
-            },
-            'Guatemala en el Contexto Mundial': {
-                professor: 'Ivonne Martínez Telón',
-                section: '140',
-                rooms: 'CIT-301'
-            },
-            'Pre-Intermediate English B': {
-                professor: 'Beatriz del Rosario Ruiz Beltrán de Horjales',
+            'MM2001': {
+                fullName: 'Cálculo 2',
+                code: 'MM2001',
                 section: '10',
-                rooms: 'CIT-301'
+                rooms: ['CIT-614'],
+                color: 'mm2001',
+                emoji: '📐',
+                professor: 'Castellanos Pineda, Arturo René'
+            },
+            'MM2002': {
+                fullName: 'Álgebra Lineal 1',
+                code: 'MM2002',
+                section: '10',
+                rooms: ['CIT-616'],
+                color: 'mm2002',
+                emoji: '🔢',
+                professor: 'Zuñiga Kaufmann de Alvarado, Ingrid Susanne'
+            },
+            'CC3086': {
+                fullName: 'Programación de Microprocesadores',
+                code: 'CC3086',
+                section: '11',
+                rooms: ['CIT-213', 'CIT-315B'],
+                color: 'cc3086',
+                emoji: '🖥️',
+                professor: 'Alvarado Conde, Carlos Víctor Hugo'
+            },
+            'CU173': {
+                fullName: 'Retos Ambientales y Sostenibilidad',
+                code: 'CU173',
+                section: '10',
+                rooms: ['CIT-213'],
+                color: 'cu173',
+                emoji: '🌱',
+                professor: 'Quinteros Flores de Ortiz, Claudia Carolina'
             }
         };
-
-        // Create modal dialog container
-        const modal = document.createElement('div');
-        modal.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-        `;
-
-        // Modal content
-        const modalContent = document.createElement('div');
-        modalContent.style.cssText = `
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.3);
-        `;
-
-        modal.appendChild(modalContent);
-        document.body.appendChild(modal);
-
-        // Handle clicks on class cells
-        document.addEventListener('DOMContentLoaded', function() {
-            const classCells = document.querySelectorAll('.class-cell.has-class');
-            classCells.forEach(cell => {
-                cell.style.cursor = 'pointer';
-                cell.addEventListener('click', function() {
-                    const className = this.querySelector('.class-name').textContent;
-                    const room = this.querySelector('.class-room').textContent;
-                    const data = subjectData[className];
-
-                    modalContent.innerHTML = `
-                        <h3>${className}</h3>
-                        <p><strong>Profesor:</strong> ${data.professor}</p>
-                        <p><strong>Sección:</strong> ${data.section}</p>
-                        <p><strong>Aula:</strong> ${room.replace('📍 ', '')}</p>
-                        <button id="close-modal" style="
-                            margin-top: 20px;
-                            padding: 8px 15px;
-                            background: #667eea;
-                            color: white;
-                            border: none;
-                            border-radius: 5px;
-                            cursor: pointer;
-                        ">Cerrar</button>
-                    `;
-                    
-                    modal.style.display = 'flex';
-                });
+        
+        const schedule = [
+            ['07:00<br>07:45', null, 'MM2001|CIT-614', 'CC3086|CIT-213', 'MM2001|CIT-614', 'CC3086|CIT-315B', null],
+            ['07:50<br>08:35', 'FF2016|C112', 'MM2001|CIT-614', 'CC3086|CIT-213', 'MM2001|CIT-614', 'CC3086|CIT-315B', null],
+            ['08:40<br>09:30', 'FF2016|C112', 'MM2002|CIT-616', 'CC3086|CIT-213', 'MM2002|CIT-616', 'CU173|CIT-213', null],
+            ['09:30<br>10:15', 'FF2016|C112', 'MM2002|CIT-616', null, 'MM2002|CIT-616', 'CU173|CIT-213', null],
+            ['10:40<br>11:30', 'CC2016|CIT-315B', null, 'FF2016|CIT-418', 'CC2016|CIT-641', 'FF2016|CIT-418', null],
+            ['11:30<br>12:15', 'CC2016|CIT-315B', null, 'FF2016|CIT-418', 'CC2016|CIT-641', 'FF2016|CIT-418', null],
+            ['12:15<br>13:05', null, null, null, 'CC2016|CIT-641', null, null],
+            ['18:10<br>18:55', null, null, null, 'EI2138|', null, null],
+            ['19:00<br>19:45', null, null, null, 'EI2138|', null, null],
+            ['19:50<br>20:35', null, null, null, 'EI2138|', null, null]
+        ];
+        
+        const days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+        
+        function generateSchedule() {
+            const grid = document.getElementById('scheduleGrid');
+            let html = '<div class="time-slot">🕐 Hora</div>';
+            
+            days.forEach(day => {
+                html += `<div class="day-header">${day}</div>`;
             });
-
-            // Close modal button
-            modal.addEventListener('click', function(e) {
-                if (e.target.id === 'close-modal' || e.target === modal) {
-                    modal.style.display = 'none';
+            
+            schedule.forEach(row => {
+                html += `<div class="time-slot">${row[0]}</div>`;
+                
+                for (let i = 1; i < row.length; i++) {
+                    if (row[i]) {
+                        const [classCode, room] = row[i].split('|');
+                        const subject = subjects[classCode];
+                        const color = subject?.color || 'empty';
+                        const displayRoom = room || 'Por confirmar';
+                        html += `
+                            <div class="class-cell ${color}" data-subject="${classCode}" data-room="${displayRoom}">
+                                <div class="class-name">${subject.fullName}</div>
+                                <div class="class-code">${classCode} - Sec. ${subject.section}</div>
+                                <div class="class-room">📍 ${displayRoom}</div>
+                            </div>
+                        `;
+                    } else {
+                        html += '<div class="class-cell empty"></div>';
+                    }
                 }
             });
-
-            // PDF print button
-            const printButton = document.createElement('button');
-            printButton.innerHTML = '📄 Descargar como PDF';
-            printButton.style.cssText = `
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                background: linear-gradient(135deg, #667eea, #764ba2);
-                color: white;
-                border: none;
-                padding: 15px 25px;
-                border-radius: 50px;
-                font-family: 'Poppins', sans-serif;
-                font-weight: 600;
-                cursor: pointer;
-                box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-                transition: all 0.3s ease;
-                z-index: 1000;
+            
+            grid.innerHTML = html;
+        }
+        
+        function generateSubjectCards() {
+            const list = document.getElementById('subjectsList');
+            let html = '';
+            
+            Object.entries(subjects).forEach(([code, data]) => {
+                html += `
+                    <div class="subject-card ${data.color}">
+                        <span class="code-badge">${data.code}</span>
+                        <h4>${data.emoji} ${data.fullName}</h4>
+                        <p><strong>Profesor:</strong> ${data.professor}</p>
+                        <p><strong>Sección:</strong> ${data.section}</p>
+                        <p><strong>Salones:</strong> ${data.rooms.join(', ')}</p>
+                    </div>
+                `;
+            });
+            
+            list.innerHTML = html;
+        }
+        
+        function showModal(classCode, room) {
+            const data = subjects[classCode];
+            const modal = document.getElementById('modal');
+            const content = document.getElementById('modalContent');
+            
+            content.innerHTML = `
+                <h3>${data.emoji} ${data.fullName}</h3>
+                <p><strong>Código:</strong> ${data.code}</p>
+                <p><strong>Sección:</strong> ${data.section}</p>
+                <p><strong>Aula:</strong> ${room}</p>
+                <p><strong>Profesor:</strong> ${data.professor}</p>
+                <button id="close-modal">Cerrar</button>
             `;
             
-            printButton.addEventListener('click', printSchedule);
-            printButton.addEventListener('mouseenter', function() {
-                this.style.transform = 'scale(1.05)';
-                this.style.boxShadow = '0 8px 25px rgba(102, 126, 234, 0.6)';
-            });
+            modal.style.display = 'flex';
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            generateSchedule();
+            generateSubjectCards();
             
-            printButton.addEventListener('mouseleave', function() {
-                this.style.transform = 'scale(1)';
-                this.style.boxShadow = '0 5px 15px rgba(102, 126, 234, 0.4)';
+            document.addEventListener('click', function(e) {
+                const cell = e.target.closest('.class-cell:not(.empty)');
+                if (cell) {
+                    const subject = cell.dataset.subject;
+                    const room = cell.dataset.room;
+                    if (subject) showModal(subject, room);
+                }
+                
+                if (e.target.id === 'close-modal' || e.target.id === 'modal') {
+                    document.getElementById('modal').style.display = 'none';
+                }
             });
-            
-            document.body.appendChild(printButton);
         });
     </script>
 </body>
